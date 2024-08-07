@@ -6,8 +6,7 @@ A wrapper application of mail.tm for android and ios devices.
 
 ### Don't forget to :star: the repo
 
-# Tech Stack
-
+## Tech Stack
 ### Frameworks, Tools & Languages
 
 - React Native
@@ -56,19 +55,9 @@ To learn more about developing this project with Expo, look at the following res
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Built With
-
-- [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-- [Maven](https://maven.apache.org/) - Dependency Management
-- [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Facing any Issue?
 
@@ -88,7 +77,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 - Hat tip to anyone whose code was used
 - Inspiration
-- feel free to contribute
 - etc
 
 ## Disclaimer
