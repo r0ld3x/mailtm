@@ -5,12 +5,12 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "mailtm",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000"
     },
     "ios": {
       "supportsTablet": true
@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#000"
       },
       "package": "com.mail.tm"
     },
@@ -42,6 +42,9 @@
         "projectId": "7efc4836-8f85-4cfa-b0cd-e34fdd94bc55"
       }
     },
-    "owner": "wnsjscroxtt"
+    "owner": "wnsjscroxtt",
+    "updates": {
+      "enabled": false
+    }
   }
 }
