@@ -1,6 +1,6 @@
-name: Android App APK Build
+name: Pull request preview apk
 
-on: push
+on: pull_request
 
 jobs:
   build:
@@ -44,34 +44,8 @@ jobs:
       - name: 📦 Build Android app
         run: eas build --platform android --profile preview --local --output ${{ github.workspace }}/app-release.apk
 
-      - name: 📦 Get Commit Message
-        id: get_commit_message
-        run: echo "::set-output name=message::$(git log -1 --pretty=format:%s)"
-
-      - name: 📦 Upload APK to GitHub Release
-        id: upload-release
-        uses: softprops/action-gh-release@v1
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: ${{ github.workspace }}/app-release.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Release notes for ${{ github.ref }}
-            Latest commit message:
-            ${{ steps.get_commit_message.outputs.message }}
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Upload APK artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: app-release
-      #     path: ${{ github.workspace }}/app-release.apk
+          name: app-release
+          path: ${{ github.workspace }}/app-release.apk
