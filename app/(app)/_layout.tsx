@@ -12,7 +12,7 @@ const globalForMailjs = global as unknown as { mailtm: Mailjs };
 export default function AppLayout() {
   const { session, isLoading } = useSession();
   const { data: id, isLoading: isLoadingId } = useGetAccount("id");
-  useEffect(() => {}, [id, session]);
+  // useEffect(() => {}, [id, session]);
   if (isLoading || isLoadingId) {
     return <Text>Loading...</Text>;
   }

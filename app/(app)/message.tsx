@@ -19,6 +19,7 @@ const Message = () => {
   const local = useLocalSearchParams();
   const { api } = useMainTmApi();
   const msgId = local.msgId as string;
+
   const [message, setMessage] = React.useState<IMessageResult | null>(null);
   useEffect(() => {
     const fetchData = async () => {
@@ -27,11 +28,13 @@ const Message = () => {
       setMessage(messages.data);
       await api.setMessageSeen(msgId);
     };
-    fetchData();
+    if (msgId.length !== 0) fetchData();
   }, []);
 
   const { width } = useWindowDimensions();
-
+  if (!msgId || msgId.length === 0) {
+    return router.navigate("/(app)");
+  }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ThemedView style={{ flex: 1, padding: 10 }}>

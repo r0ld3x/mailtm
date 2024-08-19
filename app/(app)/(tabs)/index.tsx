@@ -41,7 +41,7 @@ export default function HomeScreen() {
         body: msg.intro,
         data: {
           messsageId: msg.id,
-          screen: "/message",
+          url: `/message?msgId=${msg.id}`,
         },
       },
       trigger: null,

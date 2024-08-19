@@ -1,3 +1,4 @@
+import RenderAccountData from "@/components/RenderAccountData";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { useMainTmApi } from "@/contexts/MailTmContext";
@@ -5,9 +6,35 @@ import { useGetAccount } from "@/hooks/useGetAccount";
 import { IRegisterResult } from "@/types/mail-tm-type";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import * as Progress from "react-native-progress";
 import { useSession } from "../../../contexts/AuthContext";
+
+function formatNumber(bytes: number): string {
+  let formattedSize: string;
+
+  if (bytes < 1_000) {
+    // Less than 1 KB
+    formattedSize = bytes + " B";
+  } else if (bytes < 1_000_000) {
+    // Less than 1 MB
+    const kb = bytes / 1_000;
+    formattedSize =
+      kb % 1 === 0 ? `${kb.toFixed(0)} KB` : `${kb.toFixed(1)} KB`;
+  } else if (bytes < 1_000_000_000) {
+    // Less than 1 GB
+    const mb = bytes / 1_000_000;
+    formattedSize =
+      mb % 1 === 0 ? `${mb.toFixed(0)} MB` : `${mb.toFixed(1)} MB`;
+  } else {
+    // 1 GB or more
+    const gb = bytes / 1_000_000_000;
+    formattedSize =
+      gb % 1 === 0 ? `${gb.toFixed(0)} GB` : `${gb.toFixed(1)} GB`;
+  }
+
+  return formattedSize;
+}
 
 export default function TabTwoScreen() {
   const { api } = useMainTmApi();
@@ -29,71 +56,41 @@ export default function TabTwoScreen() {
   return (
     <ThemedView style={{ flex: 1, paddingTop: 10 }}>
       <ThemedView style={{ flex: 1, paddingHorizontal: 20, gap: 10 }}>
-        <ThemedView style={styles.items}>
-          <ThemedText style={styles.text}>Id:</ThemedText>
-          <TextInput
-            selectTextOnFocus={true}
-            style={styles.textInput}
-            placeholder="Enter text here"
-            placeholderTextColor="white"
-            secureTextEntry={false}
-            value={account ? account.id : "loading"}
-            editable={false}
-          />
-        </ThemedView>
-        <ThemedView style={styles.items}>
-          <ThemedText style={styles.text}>Address:</ThemedText>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter text here"
-            placeholderTextColor="white"
-            secureTextEntry={false}
-            value={account ? account.address : "loading"}
-            editable={false}
-          />
-        </ThemedView>
-        <ThemedView style={styles.items}>
-          <ThemedText style={styles.text}>Password:</ThemedText>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter text here"
-            placeholderTextColor="white"
-            secureTextEntry={false}
-            value={isLoading ? "loading" : password ?? ""}
-            editable={false}
-          />
-        </ThemedView>
-        <ThemedView style={styles.items}>
-          <ThemedText style={styles.text}>Created At:</ThemedText>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter text here"
-            placeholderTextColor="white"
-            secureTextEntry={false}
-            value={
-              account ? new Date(account.createdAt).toUTCString() : "loading"
-            }
-            editable={false}
-          />
-        </ThemedView>
+        <RenderAccountData name="Id" value={account?.id} />
+        <RenderAccountData name="Address" value={account?.address} />
+        <RenderAccountData
+          name="Password"
+          value={isLoading ? "loading" : password ?? ""}
+        />
+        <RenderAccountData
+          name="Created At"
+          value={
+            account ? new Date(account.createdAt).toUTCString() : undefined
+          }
+        />
+
         <ThemedView
           style={{
-            gap: 6,
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-between",
           }}
         >
           <ThemedText style={styles.text}>Used Quota:</ThemedText>
-          <ThemedText>
+          <ThemedView style={{ flex: 1, marginHorizontal: 10 }}>
             <Progress.Bar
-              progress={account ? (account.used / account.quota) * 100 : 0}
-              width={50}
+              progress={account ? account.used / account.quota : 0}
+              style={{ flex: 1 }}
             />
-          </ThemedText>
+          </ThemedView>
           {account && (
-            <ThemedText>
-              {account.used} / {account.quota}
+            <ThemedText
+              style={{
+                alignItems: "flex-end",
+                justifyContent: "center",
+              }}
+            >
+              {formatNumber(account.used)}/{formatNumber(account.quota)}
             </ThemedText>
           )}
         </ThemedView>
@@ -144,9 +141,6 @@ export default function TabTwoScreen() {
 }
 
 const styles = StyleSheet.create({
-  items: {
-    gap: 4,
-  },
   text: {
     fontSize: 18,
     fontWeight: "600",
@@ -155,21 +149,9 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     padding: 10,
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "red",
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 10,
     marginRight: 10,
-  },
-
-  textInput: {
-    width: "auto",
-    padding: 15,
-    borderRadius: 10,
-    borderColor: "white",
-    borderWidth: 1,
-    fontSize: 16,
-    color: "white",
   },
 });

@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const blurhash = "LZFYvHWGE=WGb_afjYWC-,jeM_V]";
 
 export default function SignIn() {
-  const { signIn, session } = useSession();
+  const { signIn } = useSession();
   const api = new Mailjs();
   // useEffect(() => {
   //   const fetchDomains = async () => {
@@ -45,13 +45,13 @@ export default function SignIn() {
       AsyncStorage.setItem("account-username", username);
       AsyncStorage.setItem("account-password", password);
       ToastAndroid.show("Account created successfully", ToastAndroid.SHORT);
-      router.push("/(app)/(tabs)/");
+      router.push({ pathname: "/(app)" });
     }
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar hidden />
+      <StatusBar style="auto" />
       <ThemedView style={{ flex: 1 }}>
         <ThemedView>
           <ThemedView
