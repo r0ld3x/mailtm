@@ -7,10 +7,6 @@ A wrapper application of mail.tm for android and ios devices.
 ### Don't forget to :star: the repo
 
 
-![image](https://github.com/user-attachments/assets/fa2ba1c4-06b6-4730-a54d-fd0f14af4ad8)
-
-
-
 ## Tech Stack
 ### Frameworks, Tools & Languages
 
